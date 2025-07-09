@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>随机数生成器</title>
   <style>
     body {
-      font-family: sans-serif;
-      padding: 20px;
-      background: #f0f4f8;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f7fa;
       color: #333;
+      padding: 20px;
       text-align: center;
     }
     h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-size: 26px;
+      margin-bottom: 24px;
     }
     input {
       padding: 10px;
-      margin: 10px;
-      width: 140px;
+      margin: 10px 5px;
+      width: 130px;
       font-size: 18px;
       border-radius: 8px;
       border: 1px solid #ccc;
       text-align: center;
     }
     button {
-      padding: 10px 20px;
+      padding: 10px 24px;
       font-size: 18px;
       background-color: #4CAF50;
       color: white;
@@ -43,15 +43,40 @@
       font-size: 20px;
       font-weight: bold;
       white-space: pre-line;
+      word-wrap: break-word;
     }
   </style>
 </head>
 <body>
   <h1>🎲随机数生成器</h1>
 
-  <input type="text" inputmode="numeric" pattern="[0-9]*" id="min" placeholder="最小值" value="1">
-  <input type="text" inputmode="numeric" pattern="[0-9]*" id="max" placeholder="最大值" value="100"><br>
-  <input type="text" inputmode="numeric" pattern="[0-9]*" id="count" placeholder="生成几个" value="5"><br>
+  <input
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    maxlength="5"
+    id="min"
+    placeholder="最小值"
+    value="1"
+  />
+  <input
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    maxlength="5"
+    id="max"
+    placeholder="最大值"
+    value="100"
+  /><br />
+  <input
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9]*"
+    maxlength="4"
+    id="count"
+    placeholder="生成几个"
+    value="5"
+  /><br />
 
   <button onclick="generate()">生成</button>
 
@@ -59,23 +84,33 @@
 
   <script>
     function generate() {
-      const min = parseInt(document.getElementById('min').value);
-      const max = parseInt(document.getElementById('max').value);
-      const count = parseInt(document.getElementById('count').value);
-      const resultDiv = document.getElementById('result');
+      const minInput = document.getElementById("min").value.trim();
+      const maxInput = document.getElementById("max").value.trim();
+      const countInput = document.getElementById("count").value.trim();
+
+      const min = parseInt(minInput);
+      const max = parseInt(maxInput);
+      const count = parseInt(countInput);
+
+      const resultDiv = document.getElementById("result");
+
+      if (!minInput || !maxInput || !countInput) {
+        alert("请输入所有字段");
+        return;
+      }
 
       if (isNaN(min) || isNaN(max) || isNaN(count)) {
-        alert("请输入数字！");
+        alert("请确保输入的是数字");
         return;
       }
 
       if (min >= max) {
-        alert("最小值必须小于最大值！");
+        alert("最小值必须小于最大值");
         return;
       }
 
       if (count <= 0 || count > 1000) {
-        alert("请输入合理的生成数量（1-1000）");
+        alert("生成数量应在 1 到 1000 之间");
         return;
       }
 
@@ -85,7 +120,7 @@
         results.push(num);
       }
 
-      resultDiv.innerText = `生成的随机数：\n${results.join(', ')}`;
+      resultDiv.innerText = `生成的随机数（共 ${count} 个）：\n${results.join(", ")}`;
     }
   </script>
 </body>
