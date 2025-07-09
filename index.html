@@ -2,8 +2,8 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>大眼给老师们的欧气召唤机 ✨</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>✨大眼的欧气召唤机✨</title>
   <style>
     body {
       font-family: "Segoe UI", "PingFang SC", sans-serif;
@@ -11,12 +11,7 @@
       color: #333;
       padding: 20px;
       text-align: center;
-      animation: bgGlow 10s ease infinite alternate;
-    }
-
-    @keyframes bgGlow {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
+      touch-action: manipulation; /* 禁止双击缩放 */
     }
 
     h1 {
@@ -39,7 +34,7 @@
 
     button {
       padding: 12px 26px;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: bold;
       background: linear-gradient(45deg, #ff7eb9, #ff65a3);
       color: white;
@@ -62,12 +57,12 @@
       font-weight: bold;
       color: #ff4081;
       text-shadow: 0 1px 2px rgba(255, 105, 180, 0.3);
-      animation: sparkle 1s ease-in-out;
+      animation: sparkle 0.5s ease-in-out;
     }
 
     @keyframes sparkle {
-      0% { opacity: 0; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .history {
@@ -111,9 +106,9 @@
   </style>
 </head>
 <body>
-  <h1>🌈大眼给老师们的欧气召唤机</h1>
-  <h3>祝老师们欧气满满满满满</h3>
-  <h5>大眼灯拆卡&学分聚集地拆卡专属</h5>
+   <h1>🌈大眼给老师们的欧气召唤机</h1>
+    <h3>祝老师们欧气满满满满满</h3>
+    <h5>大眼灯拆卡&学分聚集地拆卡专属</h5>
 
   <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="min" placeholder="最小值" value="1" />
   <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="max" placeholder="最大值" value="100" /><br />
