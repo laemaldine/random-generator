@@ -3,48 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>随机数生成器</title>
+  <title>大眼给老师们的欧气召唤机 ✨</title>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f9fbfd;
+      font-family: "Segoe UI", "PingFang SC", sans-serif;
+      background: linear-gradient(135deg, #ffe0f0, #e6e0ff, #fff9e6);
       color: #333;
       padding: 20px;
       text-align: center;
+      animation: bgGlow 10s ease infinite alternate;
     }
+
+    @keyframes bgGlow {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
     h1 {
-      font-size: 26px;
+      font-size: 32px;
       margin-bottom: 20px;
+      color: #d63384;
+      text-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
     }
+
     input {
       padding: 10px;
       margin: 10px 5px;
       width: 130px;
       font-size: 18px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      border-radius: 10px;
+      border: 2px solid #dcbfff;
       text-align: center;
+      background: #fff6fb;
     }
+
     button {
-      padding: 10px 20px;
-      font-size: 18px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #45a049;
-    }
-    #result {
-      margin-top: 30px;
+      padding: 12px 26px;
       font-size: 20px;
       font-weight: bold;
-      white-space: pre-line;
-      word-wrap: break-word;
+      background: linear-gradient(45deg, #ff7eb9, #ff65a3);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      margin-top: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+      transition: all 0.3s ease;
     }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.5);
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #ff4081;
+      text-shadow: 0 1px 2px rgba(255, 105, 180, 0.3);
+      animation: sparkle 1s ease-in-out;
+    }
+
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     .history {
       margin-top: 40px;
       text-align: left;
@@ -52,41 +77,56 @@
       margin-left: auto;
       margin-right: auto;
     }
+
     .history-title {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: bold;
+      color: #aa00ff;
       margin-bottom: 10px;
     }
+
     .history-item {
       background: #fff;
-      padding: 10px;
-      margin-bottom: 8px;
-      border-radius: 6px;
-      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      border: 1px solid #eee;
       font-size: 16px;
+      line-height: 1.6;
+      box-shadow: 0 2px 5px rgba(160, 120, 255, 0.1);
     }
+
+    .result-text {
+      display: block;
+      font-weight: bold;
+      font-size: 20px;
+      color: #ff0066;
+      margin-top: 5px;
+    }
+
     .clear-btn {
-      margin-top: 10px;
-      background-color: #d9534f;
+      margin-top: 12px;
+      background-color: #ff1744;
     }
   </style>
 </head>
 <body>
-  <h1>🎲大眼的随机数生成器</h1>
-  <h3>祝老师们欧气满满！</h3>
+  <h1>🌈大眼给老师们的欧气召唤机</h1>
+  <h3>祝老师们欧气满满满满满</h3>
+  <h5>大眼灯拆卡&学分聚集地拆卡专属</h5>
 
   <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="min" placeholder="最小值" value="1" />
   <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="max" placeholder="最大值" value="100" /><br />
-  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="count" placeholder="生成几个" value="5" /><br />
+  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="count" placeholder="抽几个" value="5" /><br />
 
-  <button onclick="generate()">生成</button>
+  <button onclick="generate()">召唤吧！✨</button>
 
   <div id="result"></div>
 
   <div class="history" id="historyContainer" style="display:none;">
-    <div class="history-title">📜 历史记录（最多保留 20 条）：</div>
+    <div class="history-title">📜 你的欧气轨迹：</div>
     <div id="historyList"></div>
-    <button class="clear-btn" onclick="clearHistory()">清除历史</button>
+    <button class="clear-btn" onclick="clearHistory()">🧹 清除历史</button>
   </div>
 
   <script>
@@ -117,7 +157,7 @@
         results.push(num);
       }
 
-      const resultText = `生成的随机数（共 ${count} 个）：\n${results.join(', ')}`;
+      const resultText = `✨ 召唤结果：${results.join(', ')}`;
       resultDiv.innerText = resultText;
 
       saveToHistory(results);
@@ -132,7 +172,7 @@
 
     function saveToHistory(results) {
       const history = JSON.parse(localStorage.getItem("randomHistory") || "[]");
-      const entry = `${getTimeString()}: ${results.join(', ')}`;
+      const entry = `${getTimeString()}|${results.join(', ')}`;
       history.unshift(entry);
       const trimmed = history.slice(0, 20);
       localStorage.setItem("randomHistory", JSON.stringify(trimmed));
@@ -147,9 +187,10 @@
       if (history.length > 0) {
         container.style.display = "block";
         history.forEach((item, index) => {
+          const [time, nums] = item.split('|');
           const div = document.createElement("div");
           div.className = "history-item";
-          div.textContent = `${index + 1}. ${item}`;
+          div.innerHTML = `<div>🎯 <strong>${index + 1}. ${time}</strong></div><span class="result-text">🎊 ${nums}</span>`;
           list.appendChild(div);
         });
       } else {
@@ -162,7 +203,6 @@
       renderHistory();
     }
 
-    // 初始化加载历史
     renderHistory();
   </script>
 </body>
