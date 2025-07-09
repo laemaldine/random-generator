@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>随机数生成器</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f0f4f8;
+      color: #333;
+      text-align: center;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      margin: 10px;
+      width: 120px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲随机数生成器</h1>
+  <input type="number" id="min" placeholder="最小值" value="1">
+  <input type="number" id="max" placeholder="最大值" value="100"><br>
+  <input type="number" id="count" placeholder="生成几个" value="5"><br>
+  <button onclick="generate()">生成</button>
+  <div id="result"></div>
+
+  <script>
+    function generate() {
+      const min = parseInt(document.getElementById('min').value);
+      const max = parseInt(document.getElementById('max').value);
+      const count = parseInt(document.getElementById('count').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(min) || isNaN(max) || min >= max || isNaN(count) || count <= 0) {
+        alert("请输入正确的最小值、最大值和生成数量");
+        return;
+      }
+
+      let results = [];
+      for (let i = 0; i < count; i++) {
+        const num = Math.floor(Math.random() * (max - min + 1)) + min;
+        results.push(num);
+      }
+
+      resultDiv.innerText = `生成的随机数：\n${results.join(', ')}`;
+    }
+  </script>
+</body>
+</html>
