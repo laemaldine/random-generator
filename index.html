@@ -19,10 +19,11 @@
     input {
       padding: 10px;
       margin: 10px;
-      width: 120px;
+      width: 140px;
       font-size: 18px;
       border-radius: 8px;
       border: 1px solid #ccc;
+      text-align: center;
     }
     button {
       padding: 10px 20px;
@@ -47,10 +48,13 @@
 </head>
 <body>
   <h1>🎲随机数生成器</h1>
-  <input type="number" id="min" placeholder="最小值" value="1">
-  <input type="number" id="max" placeholder="最大值" value="100"><br>
-  <input type="number" id="count" placeholder="生成几个" value="5"><br>
+
+  <input type="text" inputmode="numeric" pattern="[0-9]*" id="min" placeholder="最小值" value="1">
+  <input type="text" inputmode="numeric" pattern="[0-9]*" id="max" placeholder="最大值" value="100"><br>
+  <input type="text" inputmode="numeric" pattern="[0-9]*" id="count" placeholder="生成几个" value="5"><br>
+
   <button onclick="generate()">生成</button>
+
   <div id="result"></div>
 
   <script>
@@ -60,12 +64,22 @@
       const count = parseInt(document.getElementById('count').value);
       const resultDiv = document.getElementById('result');
 
-      if (isNaN(min) || isNaN(max) || min >= max || isNaN(count) || count <= 0) {
-        alert("请输入正确的最小值、最大值和生成数量");
+      if (isNaN(min) || isNaN(max) || isNaN(count)) {
+        alert("请输入数字！");
         return;
       }
 
-      let results = [];
+      if (min >= max) {
+        alert("最小值必须小于最大值！");
+        return;
+      }
+
+      if (count <= 0 || count > 1000) {
+        alert("请输入合理的生成数量（1-1000）");
+        return;
+      }
+
+      const results = [];
       for (let i = 0; i < count; i++) {
         const num = Math.floor(Math.random() * (max - min + 1)) + min;
         results.push(num);
