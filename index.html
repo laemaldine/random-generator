@@ -72,9 +72,8 @@
   </style>
 </head>
 <body>
-  <h1>🎲大眼灯拆卡&学分聚集地拆卡🎲</h1>
-  <h1>专属随机数生成器 </h1>
-  <h2>祝老师们欧气满满！</h2>
+  <h1>🎲大眼的随机数生成器</h1>
+  <h3>祝老师们欧气满满！</h3>
 
   <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="min" placeholder="最小值" value="1" />
   <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="max" placeholder="最大值" value="100" /><br />
@@ -125,9 +124,16 @@
       renderHistory();
     }
 
+    function getTimeString() {
+      const now = new Date();
+      const pad = (n) => n.toString().padStart(2, '0');
+      return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    }
+
     function saveToHistory(results) {
       const history = JSON.parse(localStorage.getItem("randomHistory") || "[]");
-      history.unshift(results.join(', '));
+      const entry = `${getTimeString()}: ${results.join(', ')}`;
+      history.unshift(entry);
       const trimmed = history.slice(0, 20);
       localStorage.setItem("randomHistory", JSON.stringify(trimmed));
     }
@@ -156,7 +162,7 @@
       renderHistory();
     }
 
-    // 初始化渲染历史
+    // 初始化加载历史
     renderHistory();
   </script>
 </body>
