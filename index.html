@@ -7,14 +7,14 @@
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f5f7fa;
+      background: #f9fbfd;
       color: #333;
       padding: 20px;
       text-align: center;
     }
     h1 {
       font-size: 26px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     input {
       padding: 10px;
@@ -26,7 +26,7 @@
       text-align: center;
     }
     button {
-      padding: 10px 24px;
+      padding: 10px 20px;
       font-size: 18px;
       background-color: #4CAF50;
       color: white;
@@ -45,72 +45,70 @@
       white-space: pre-line;
       word-wrap: break-word;
     }
+    .history {
+      margin-top: 40px;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .history-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .history-item {
+      background: #fff;
+      padding: 10px;
+      margin-bottom: 8px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      font-size: 16px;
+    }
+    .clear-btn {
+      margin-top: 10px;
+      background-color: #d9534f;
+    }
   </style>
 </head>
 <body>
-  <h1>🎲随机数生成器</h1>
+  <h1>🎲大眼灯拆卡&学分聚集地拆卡
+    专属随机数生成器
+  祝老师们欧气满满！</h1>
 
-  <input
-    type="text"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    maxlength="5"
-    id="min"
-    placeholder="最小值"
-    value="1"
-  />
-  <input
-    type="text"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    maxlength="5"
-    id="max"
-    placeholder="最大值"
-    value="100"
-  /><br />
-  <input
-    type="text"
-    inputmode="numeric"
-    pattern="[0-9]*"
-    maxlength="4"
-    id="count"
-    placeholder="生成几个"
-    value="5"
-  /><br />
+  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="min" placeholder="最小值" value="1" />
+  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" id="max" placeholder="最大值" value="100" /><br />
+  <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" id="count" placeholder="生成几个" value="5" /><br />
 
   <button onclick="generate()">生成</button>
 
   <div id="result"></div>
 
+  <div class="history" id="historyContainer" style="display:none;">
+    <div class="history-title">📜 历史记录（最多保留 20 条）：</div>
+    <div id="historyList"></div>
+    <button class="clear-btn" onclick="clearHistory()">清除历史</button>
+  </div>
+
   <script>
     function generate() {
-      const minInput = document.getElementById("min").value.trim();
-      const maxInput = document.getElementById("max").value.trim();
-      const countInput = document.getElementById("count").value.trim();
-
-      const min = parseInt(minInput);
-      const max = parseInt(maxInput);
-      const count = parseInt(countInput);
-
+      const min = parseInt(document.getElementById("min").value.trim());
+      const max = parseInt(document.getElementById("max").value.trim());
+      const count = parseInt(document.getElementById("count").value.trim());
       const resultDiv = document.getElementById("result");
 
-      if (!minInput || !maxInput || !countInput) {
-        alert("请输入所有字段");
-        return;
-      }
-
       if (isNaN(min) || isNaN(max) || isNaN(count)) {
-        alert("请确保输入的是数字");
+        alert("请输入有效的数字！");
         return;
       }
 
       if (min >= max) {
-        alert("最小值必须小于最大值");
+        alert("最小值必须小于最大值！");
         return;
       }
 
       if (count <= 0 || count > 1000) {
-        alert("生成数量应在 1 到 1000 之间");
+        alert("生成数量应在 1 到 1000 之间！");
         return;
       }
 
@@ -120,8 +118,46 @@
         results.push(num);
       }
 
-      resultDiv.innerText = `生成的随机数（共 ${count} 个）：\n${results.join(", ")}`;
+      const resultText = `生成的随机数（共 ${count} 个）：\n${results.join(', ')}`;
+      resultDiv.innerText = resultText;
+
+      saveToHistory(results);
+      renderHistory();
     }
+
+    function saveToHistory(results) {
+      const history = JSON.parse(localStorage.getItem("randomHistory") || "[]");
+      history.unshift(results.join(', '));
+      const trimmed = history.slice(0, 20);
+      localStorage.setItem("randomHistory", JSON.stringify(trimmed));
+    }
+
+    function renderHistory() {
+      const history = JSON.parse(localStorage.getItem("randomHistory") || "[]");
+      const container = document.getElementById("historyContainer");
+      const list = document.getElementById("historyList");
+      list.innerHTML = "";
+
+      if (history.length > 0) {
+        container.style.display = "block";
+        history.forEach((item, index) => {
+          const div = document.createElement("div");
+          div.className = "history-item";
+          div.textContent = `${index + 1}. ${item}`;
+          list.appendChild(div);
+        });
+      } else {
+        container.style.display = "none";
+      }
+    }
+
+    function clearHistory() {
+      localStorage.removeItem("randomHistory");
+      renderHistory();
+    }
+
+    // 初始化渲染历史
+    renderHistory();
   </script>
 </body>
 </html>
